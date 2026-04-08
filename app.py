@@ -512,7 +512,7 @@ function formatUrl(url) {
 
 // ---- Exports ----
 function exportCSV() {
-  const fields = ['company_name', 'ad_url', 'emails', 'phones'];
+  const fields = ['keyword', 'company_name', 'ad_url', 'emails', 'phones'];
   const rows   = [fields.join(',')];
   for (const ad of currentAds) {
     const e = currentEnrich[ad._uid] || {};
