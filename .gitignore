@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+browser_profile/
+debug_*.png
+*.csv
+*.json
+node_modules/
+package.json
+package-lock.json
