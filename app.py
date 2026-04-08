@@ -512,25 +512,27 @@ function formatUrl(url) {
 
 // ---- Exports ----
 function exportCSV() {
-  const fields = ['keyword', 'company_name', 'ad_url', 'emails', 'phones'];
-  const rows   = [fields.join(',')];
+  const headers = ['keyword', 'company_name', 'ad_url', 'emails', 'phones'];
+  const rows = [headers.join(',')];
   for (const ad of currentAds) {
     const e = currentEnrich[ad._uid] || {};
-    rows.push(fields.map(f => {
-      let v;
-      if      (f === 'emails') v = (e.emails || []).join(' | ');
-      else if (f === 'phones') v = (e.phones || []).join(' | ');
-      else                     v = ad[f] || '';
-      return '"' + String(v).replace(/"/g, '""') + '"';
-    }).join(','));
+    const row = [
+      ad.keyword      || '',
+      ad.company_name || '',
+      ad.ad_url       || '',
+      (e.emails || []).join(' | '),
+      (e.phones || []).join(' | '),
+    ];
+    rows.push(row.map(v => '"' + String(v).replace(/"/g, '""') + '"').join(','));
   }
-  download(new Blob([rows.join('\\n')], {type: 'text/csv'}), 'ehow_ads.csv');
+  download(new Blob([rows.join('\n')], {type: 'text/csv'}), 'ehow_ads.csv');
 }
 
 function exportJSON() {
   const out = currentAds.map(ad => {
     const e = currentEnrich[ad._uid] || {};
     return {
+      keyword:      ad.keyword      || '',
       company_name: ad.company_name || '',
       ad_url:       ad.ad_url       || '',
       emails:       e.emails        || [],
