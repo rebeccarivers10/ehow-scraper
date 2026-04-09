@@ -525,7 +525,7 @@ function exportCSV() {
     ];
     rows.push(row.map(v => '"' + String(v).replace(/"/g, '""') + '"').join(','));
   }
-  download(new Blob([rows.join('\n')], {type: 'text/csv'}), 'ehow_ads.csv');
+  download(new Blob([rows.join(String.fromCharCode(10))], {type: 'text/csv'}), 'ehow_ads.csv');
 }
 
 function exportJSON() {
@@ -640,5 +640,5 @@ def enrich():
 if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 5003))
-    print(f"\n  eHow Ad Scraper running → http://localhost:{port}\n")
+    print(f"\n  eHow Ad Scraper running -> http://localhost:{port}\n")
     app.run(debug=False, port=port, threaded=True)
