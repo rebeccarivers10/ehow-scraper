@@ -493,7 +493,7 @@ function formatCompanyName(ad) {
   // Extract the part before the first separator as the company name
   const hl = (ad.headline || '').trim();
   if (hl) {
-    const match = hl.match(/^(.+?)\s*[-–|]\s*.+$/);
+    const match = hl.match(/^(.+?) *[-\u2013|] *.+$/);
     if (match && match[1].length <= 40) return match[1].trim();
     if (hl.length <= 35) return hl;  // short headline is likely just the brand
   }
@@ -504,7 +504,7 @@ function formatCompanyName(ad) {
 function formatUrl(url) {
   // Show just the hostname, strip www.
   try {
-    return new URL(url).hostname.replace(/^www\./, '');
+    return new URL(url).hostname.replace(/^www[.]/, '');
   } catch(e) {
     return url.length > 50 ? url.substring(0, 50) + '…' : url;
   }
